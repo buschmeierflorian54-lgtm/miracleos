@@ -1,0 +1,766 @@
+/*
+	MiracleOS's desktop - A taskbar, with a main menu and a notification daemon
+    Copyright (C) 2025 MiracleOS Contributors
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+*/
+
+.blue {
+    background-color: blue;
+  }
+
+  .green {
+    background-color: green;
+  }
+
+  .yellow {
+    background-color: yellow;
+  }
+
+  .purple {
+    background-color: purple;
+  }
+
+  .red {
+    background-color: red;
+  }
+
+  .orange {
+    background-color: orange;
+  }
+
+  .pink {
+    background-color: pink;
+  }
+
+  .teal {
+    background-color: teal;
+  }
+
+  .cyan {
+    background-color: cyan;
+  }
+
+  .indigo {
+    background-color: indigo;
+  }
+
+  .lime {
+    background-color: lime;
+  }
+
+  .brown {
+    background-color: brown;
+  }
+
+  .gray {
+    background-color: gray;
+  }
+
+  .gold {
+    background-color: gold;
+  }
+
+  .silver {
+    background-color: silver;
+  }
+
+  .violet {
+    background-color: violet;
+  }
+
+  .magenta {
+    background-color: magenta;
+  }
+
+  .aqua {
+    background-color: aqua;
+  }
+
+  .khaki {
+    background-color: khaki;
+  }
+
+  .coral {
+    background-color: coral;
+  }
+
+  .navy {
+    background-color: navy;
+  }
+
+  .olive {
+    background-color: olive;
+  }
+
+  .maroon {
+    background-color: maroon;
+  }
+
+  .turquoise {
+    background-color: turquoise;
+  }
+
+  .h1 {
+    font-size: 1.5em; /* 40px/16=2.5em */
+    font-weight: bolder;
+  }
+
+  .h2 {
+    font-size: 1.25em; /* 30px/16=1.875em */
+    font-weight: bold;
+  }
+
+  .h3 {
+    font-size: 1.1em;
+    font-weight: bold;
+  }
+
+  .h4 {
+    font-size: 0.75em;
+  }
+
+  .button {
+    background-color: #97315D;
+    border-radius: 25px;
+    padding: 10px;
+  }
+
+  .mos-input {
+    background-color: rgba(79, 15, 25, 0.7);
+    padding: 15px;
+    border-radius: 25px;
+  }
+
+  .notification_bar {
+    color: white;
+    margin: 15px;
+  }
+
+  .ntf_text_contents {
+    margin: 15px;
+  }
+
+  .ntf_text_contents .h4 {
+    margin-top: 10px;
+  }
+
+  .ntf_main_image {
+    margin: 15px;
+    margin-top: 10px;
+  }
+
+  .ntf_top_bar {
+    padding: 10px;
+  }
+
+  .ntf_topbar_text image {
+    margin-right: 10px;
+  }
+
+  .ntf_main_div {
+    background: radial-gradient(circle, #4E122F, #5e2c44);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 20px;
+  }
+
+  .mm_tab {
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px;
+    background-color: rgba(94, 44, 68, 0.5);
+  }
+
+  .mm_toppart {
+    border-bottom: #ffffff solid 1px;
+    margin-top: 10px;
+    padding-bottom: 20px;
+  }
+
+  .mm_applist_appgroup {
+    padding-left: 10px;
+  }
+
+  .mm_applist_app {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  .mm_bottompart {
+    padding: 15px;
+  }
+
+  .mm_profileinfo image {
+    margin: 5px;
+    margin-right: 10px;
+  }
+
+  .mm_profileinfo .h1 {
+    margin-top: 3px;
+  }
+
+  .mm_managingicons * {
+    margin: 5px;
+  }
+
+  .mm_menu_m2 {
+    background-color: rgba(94, 44, 68, 0.6);
+    padding: 10px;
+    padding-left: 25px;
+    padding-right: 25px;
+    border-radius: 25px;
+  }
+
+  * {
+    all: unset;
+  }
+
+  .bar {
+    color: #ffffff;
+    padding: 10px;
+  }
+
+  .activate-linux {
+    color: rgba(250, 250, 250, 0.5);
+  }
+  .activate-linux.background {
+    background: none;
+  }
+
+  .app:hover {
+    background: rgba(255, 255, 255, 0.5);
+  }
+
+  .app {
+    transition: all 1s;
+    background: rgba(255, 255, 255, 0.25);
+    padding: 12px;
+    border-radius: 20000px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin-left: 5px;
+    margin-right: 5px;
+
+  }
+
+  .clock-text {
+    font-weight: 900;
+    font-size: xx-large;
+  }
+
+  .day-text {
+    padding-left: 10px;
+    font-weight: 900;
+    font-size: x-large;
+  }
+
+  .notification-bell-wrapper {
+    background: white;
+    color: black;
+    border-radius: 200000px;
+    padding: 0px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-left: 15px;
+    margin-right: 5px;
+  }
+
+  .status-icons-wrapper {
+    background: white;
+    color: black;
+    border-radius: 200000px;
+    padding: 0px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+
+  .center-icons image {
+    margin: 5px;
+  }
+
+  .other-icons-wrapper image {
+    margin: 5px;
+  }
+
+  .status-icons-wrapper image {
+    margin: 5px;
+  }
+
+  .workspaces * {
+    margin: 0px;
+  }
+
+/* Start-menu widgets and the unified app preview. */
+.mm_menu_m2 {
+  color: #fff5fb;
+  font-family: "DejaVu Sans";
+  font-size: 12px;
+  padding: 18px 22px 8px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 174, 218, 0.20);
+  background: linear-gradient(135deg, rgba(43, 12, 37, 0.96), rgba(68, 16, 44, 0.93));
+  box-shadow: 0 12px 36px rgba(15, 2, 19, 0.35);
+}
+.mm_tab {
+  margin: 0;
+  padding: 14px;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 164, 210, 0.10);
+  background: linear-gradient(145deg, rgba(118, 42, 88, 0.44), rgba(71, 21, 60, 0.64));
+}
+.mm_toppart {
+  margin-top: 0;
+  padding: 0 0 14px;
+  border-bottom: 1px solid rgba(255, 228, 244, 0.27);
+}
+.mos-input {
+  padding: 10px 18px;
+  border-radius: 22px;
+  min-height: 18px;
+  color: #fff5fb;
+  border: 1px solid rgba(255, 132, 194, 0.16);
+  background: linear-gradient(to bottom, rgba(149, 36, 92, 0.70), rgba(93, 23, 58, 0.77));
+}
+.menu-wordmark { color: rgba(255, 208, 235, 0.56); font-size: 11px; }
+.quick-app-button { border-radius: 50%; padding: 2px; }
+.quick-app-button:hover { background-color: rgba(255, 176, 219, 0.13); }
+.section-heading { font-size: 12px; color: #f4d8e9; margin-bottom: 1px; }
+.muted-caption { font-size: 9px; color: #e9b9d3; }
+.tiny-caption { font-size: 8px; color: rgba(255, 222, 240, 0.63); }
+.app-caption { font-size: 9px; color: #ffeef9; }
+.menu-app-tile { padding: 2px; border-radius: 12px; }
+.menu-app-tile:hover { background-color: rgba(255, 167, 215, 0.13); }
+.menu-app-tile:active { background-color: rgba(238, 92, 168, 0.25); }
+.widget-panel {
+  background: radial-gradient(circle at 45% 62%, rgba(153, 40, 150, 0.37), rgba(64, 17, 52, 0.72));
+}
+.weather-card {
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 182, 222, 0.16);
+  background: linear-gradient(140deg, #792854, #4e244c);
+  box-shadow: 0 4px 12px rgba(18, 2, 18, 0.15);
+}
+.weather-card:hover { background: linear-gradient(140deg, #8c305f, #592952); }
+.weather-temperature { font-size: 34px; font-weight: bold; color: #ffffff; }
+.forecast-caption { font-size: 8px; color: #fbe1ee; }
+.forecast-sun { font-size: 19px; color: #ffce63; }
+.mm_tab scrollbar slider { min-width: 3px; min-height: 25px; border-radius: 4px; background-color: rgba(240, 167, 214, 0.40); }
+.calendar-card {
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 177, 217, 0.15);
+  background: linear-gradient(160deg, #76265e, #4e2250);
+}
+.calendar-card:hover { background: linear-gradient(160deg, #8c2d6d, #5a265b); }
+.calendar-day { font-size: 28px; font-weight: bold; color: #ffffff; }
+.calendar-caption { font-size: 8px; color: #ffe4f3; }
+.agenda-pink, .agenda-blue { font-size: 8px; padding: 5px 4px; border-radius: 5px; }
+.agenda-pink { background-color: rgba(228, 64, 145, 0.18); color: #ffb7d8; }
+.agenda-blue { background-color: rgba(115, 113, 245, 0.19); color: #d3c9ff; }
+.music-card {
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 177, 217, 0.15);
+  background: linear-gradient(155deg, #296499, #724172 53%, #6d235e);
+}
+.music-title { font-size: 12px; font-weight: bold; color: #ffffff; }
+.music-progress trough { min-height: 3px; border-radius: 3px; background-color: rgba(255, 229, 245, 0.18); }
+.music-progress progress { min-height: 3px; border-radius: 3px; background-color: #ff8bc4; }
+.music-control { font-size: 20px; min-width: 12px; color: #f6d3eb; }
+.music-control:hover { color: #ffffff; }
+.play-button { min-width: 27px; min-height: 27px; border-radius: 50%; background-color: #c84e99; color: white; font-size: 11px; }
+.play-button:hover { background-color: #e566b0; }
+.add-widget-button { min-width: 25px; min-height: 25px; border-radius: 7px; font-size: 19px; background-color: rgba(220, 133, 197, 0.24); }
+.add-widget-button:hover { background-color: rgba(220, 133, 197, 0.42); }
+.mm_applist_app { padding: 5px 2px; margin: 2px 0; border-radius: 8px; }
+.mm_applist_app:hover { background-color: rgba(255, 174, 218, 0.10); }
+.mm_bottompart { padding: 9px 0; }
+.demo-window { padding: 24px; color: #ffeef9; background: linear-gradient(135deg, #351027, #591b48); }
+.demo-description { font-size: 12px; color: #edd3e4; }
+.soft-button { padding: 10px 18px; border-radius: 9px; background-color: #973968; }
+.soft-button:hover { background-color: #b34781; }
+.demo-window calendar { padding: 10px; color: #ffe8f6; }
+.demo-window calendar:selected { background-color: #ad447f; }
+.demo-window checkbutton check { min-width: 14px; min-height: 14px; margin-right: 8px; border: 1px solid #c87caa; border-radius: 4px; }
+.demo-window checkbutton check:checked { background-color: #d35b9f; }
+
+/* Light rose glass for the native file manager. */
+.fm-shell { color: #332237; font-family: "DejaVu Sans"; font-size: 12px; border-radius: 18px; border: 1px solid rgba(255,255,255,0.62); background: linear-gradient(150deg, rgba(238,216,238,0.94), rgba(255,224,241,0.92) 56%, rgba(249,208,235,0.94)); box-shadow: 0 16px 44px rgba(57,14,53,0.26), inset 0 1px rgba(255,255,255,0.7); }
+.glass-titlebar { color: #322038; min-height: 36px; padding: 5px 12px; border-radius: 18px 18px 0 0; border-bottom: 1px solid rgba(125,65,113,0.13); background: linear-gradient(to bottom, rgba(166,113,156,0.37), rgba(188,144,176,0.28)); }
+.glass-window-title { font-size: 12px; font-weight: bold; color: #362038; }
+.glass-window-control { min-width: 30px; min-height: 28px; border-radius: 9px; font-size: 22px; color: #3c2740; }
+.glass-window-control:hover { background: rgba(255,255,255,0.44); box-shadow: inset 0 1px rgba(255,255,255,0.5); }
+.glass-window-close:hover { background: #e16492; color: white; }
+.fm-toolbar { padding: 12px 16px 6px; }
+.fm-control { min-width: 31px; min-height: 31px; padding: 2px; border-radius: 9px; color: #523352; font-size: 22px; }
+.fm-control:hover { background: rgba(255,255,255,0.52); }
+.fm-path, .fm-search { min-height: 28px; padding: 6px 14px; border-radius: 22px; color: #4c344e; background: rgba(255,255,255,0.48); border: 1px solid rgba(255,255,255,0.4); box-shadow: inset 0 1px 1px rgba(255,255,255,0.45); }
+.fm-path:focus, .fm-search:focus { border-color: rgba(181,88,153,0.50); background: rgba(255,255,255,0.66); }
+.fm-search { padding: 8px 20px; }
+.fm-main { padding: 8px 16px 6px; }
+.fm-sidebar { padding: 10px 4px; }
+.fm-section-label { padding-left: 10px; font-size: 9px; font-weight: bold; letter-spacing: 1px; color: #906b8b; }
+.fm-place { padding: 8px 11px; border-radius: 11px; color: #493348; }
+.fm-place:hover { background: rgba(255,255,255,0.32); }
+.fm-place-active { background: rgba(255,245,253,0.62); box-shadow: inset 3px 0 #da64b4, 0 3px 10px rgba(140,72,124,0.06); }
+.fm-place-label { font-size: 12px; color: #493348; }
+.fm-content { padding: 12px 14px 10px; border-radius: 14px; background: rgba(255,246,252,0.32); border: 1px solid rgba(255,255,255,0.28); }
+.fm-page-title { color: #301f32; font-size: 30px; font-weight: bold; }
+.fm-home-card { padding: 16px 12px; border-radius: 14px; background: rgba(255,246,251,0.59); border: 1px solid rgba(255,255,255,0.44); box-shadow: 0 5px 16px rgba(157,93,139,0.05); }
+.fm-card-title { font-size: 12px; font-weight: bold; color: #574255; }
+.fm-home-folder { padding: 8px 4px; border-radius: 10px; min-width: 45px; }
+.fm-home-folder:hover { background: rgba(255,255,255,0.66); }
+.fm-small-name { font-size: 9px; color: #4e374d; }
+.fm-home-item { padding: 8px 1px; border-radius: 9px; }
+.fm-home-item:hover { background: rgba(255,255,255,0.6); }
+.fm-recent-name { color: #3b293c; font-size: 10px; font-weight: bold; }
+.fm-muted { font-size: 9px; color: #926f8c; }
+.fm-folder-icon { padding: 5px 3px; }
+.fm-folder-tab { border-radius: 5px 5px 0 0; border: 1px solid rgba(255,255,255,0.40); border-bottom: none; }
+.fm-folder-front { border-radius: 3px 6px 7px 7px; border: 1px solid rgba(255,255,255,0.53); box-shadow: 0 5px 9px rgba(113,54,104,0.16), inset 0 2px rgba(255,255,255,0.48); }
+.fm-folder-color-0 { background: linear-gradient(150deg, #ffafb5, #fa7989 48%, #e95c76); }
+.fm-folder-color-1 { background: linear-gradient(150deg, #a1e4ff, #56bce7 48%, #3298d5); }
+.fm-folder-color-2 { background: linear-gradient(150deg, #ffe9a0, #f7cb64 48%, #e7aa38); }
+.fm-folder-color-3 { background: linear-gradient(150deg, #b3f2ce, #6cd69d 48%, #3dad79); }
+.fm-folder-color-4 { background: linear-gradient(150deg, #e1b6ff, #bd87e8 48%, #9e61cb); }
+.fm-file-grid { padding: 18px 8px; }
+.fm-file-grid flowboxchild { padding: 8px; border-radius: 12px; border: 1px solid transparent; }
+.fm-file-grid flowboxchild:hover { background: rgba(255,255,255,0.44); }
+.fm-file-grid flowboxchild:selected { background: rgba(246,210,235,0.70); border-color: rgba(196,105,170,0.38); }
+.fm-file-name { font-size: 11px; color: #493048; }
+.fm-status { padding: 9px 22px 12px; color: #916788; font-size: 9px; }
+.fm-hidden-toggle { padding: 5px 9px; font-size: 10px; color: #895e80; }
+.fm-hidden-toggle check { min-width: 12px; min-height: 12px; margin-right: 6px; border: 1px solid #c69cb9; border-radius: 4px; }
+.fm-hidden-toggle check:checked { background: #cc71b1; }
+.fm-dialog { padding: 20px; background: #f6e1f0; color: #51364d; }
+.fm-content scrollbar slider { min-width: 4px; min-height: 28px; border-radius: 4px; background: rgba(162,103,145,0.32); }
+.bar-launcher { min-width: 42px; min-height: 40px; padding: 3px; border-radius: 13px; }
+.bar-launcher:hover { background: rgba(255,255,255,0.20); }
+.installer-content { padding: 22px 30px 26px; }
+.installer-title { font-size: 26px; font-weight: bold; color: #3b253c; }
+.installer-subtitle { color: #9a6c8c; font-size: 10px; }
+.installer-card { padding: 18px; border-radius: 14px; background: rgba(255,250,253,0.62); border: 1px solid rgba(255,255,255,0.55); }
+.installer-metadata { color: #926781; font-size: 10px; }
+.installer-description { color: #52384e; font-size: 12px; }
+.installer-status { color: #80546f; font-size: 11px; }
+.installer-primary { color: white; font-weight: bold; padding: 11px 24px; border-radius: 11px; background: linear-gradient(140deg, #bf69a4, #9a4c8e); box-shadow: 0 4px 12px rgba(142,66,116,0.18), inset 0 1px rgba(255,255,255,0.26); }
+.installer-primary:hover { background: linear-gradient(140deg, #cd80b5, #ad60a1); }
+.installer-primary:disabled { opacity: 0.45; }
+.installer-secondary { color: #79516f; padding: 10px 16px; border-radius: 10px; background: rgba(255,255,255,0.42); }
+.installer-secondary:hover { background: rgba(255,255,255,0.72); }
+.installer-progress trough { min-height: 5px; border-radius: 5px; background: rgba(145,86,124,0.13); }
+.installer-progress progress { min-height: 5px; border-radius: 5px; background: linear-gradient(to right, #c67bb3, #ad609f); }
+
+
+/* Startup palette: named colours keep later theme selection central. */
+@define-color startup_top #432542;
+@define-color startup_bottom #a45c89;
+@define-color startup_foreground #fff3fc;
+.startup-screen { background-image: linear-gradient(135deg, @startup_top, @startup_bottom); color: @startup_foreground; }
+.startup-title { font-size: 42px; font-weight: 700; color: @startup_foreground; }
+.startup-subtitle { font-size: 17px; color: alpha(@startup_foreground,0.78); }
+.startup-screen spinner { color: #f5badf; }
+
+/* Native MiracleOS settings, following the rose glass reference. */
+.settings-page { padding: 24px 28px 26px; }
+.settings-title { font-size: 27px; font-weight: bold; }
+.settings-card { padding: 18px 16px; border-radius: 14px; border: 1px solid rgba(255,255,255,.58); background: rgba(255,247,253,.65); }
+.settings-card-title { font-size: 12px; font-weight: bold; }
+.settings-muted { font-size: 11px; color: #896c83; }
+.settings-small { font-size: 10px; }
+.settings-search { border-radius: 22px; padding: 8px 16px; min-height: 26px; border: 1px solid rgba(255,255,255,.50); }
+.settings-button { padding: 10px 12px; border-radius: 10px; color: #55394e; background: rgba(255,255,255,.32); }
+.settings-button:hover { background: rgba(255,255,255,.7); }
+.settings-chip { border-radius: 16px; padding: 5px 12px; font-size: 10px; }
+.settings-category-row { padding: 20px 0 8px; border-top: 1px solid rgba(255,255,255,.38); }
+.settings-category { padding: 10px 4px; border-radius: 12px; }
+.settings-category:hover { background: rgba(255,255,255,.35); }
+.settings-category label { font-weight: bold; }
+.settings-sidebar { min-width: 170px; padding: 6px 4px; }
+.settings-sidebar button { padding: 8px 9px; background-image: none; background-color: transparent; border-color: transparent; box-shadow: none; }
+
+.settings-selected { border-radius: 9px; box-shadow: inset 3px 0 #bf69a4; background: rgba(255,255,255,.6); }
+.settings-theme-preview { padding: 4px; border-radius: 12px; }
+.settings-theme-sample-light { background: linear-gradient(135deg,#bd92c8,#f0b4d5); border: 1px solid rgba(255,255,255,.5); padding: 10px; border-radius: 8px; }
+.settings-theme-sample-dark { background: linear-gradient(135deg,#251024,#57253f); border: 1px solid rgba(255,255,255,.2); padding: 10px; border-radius: 8px; }
+.settings-preview-type { font-size: 18px; font-weight: bold; }
+.settings-swatch { min-width: 28px; min-height: 28px; padding: 2px; border: 3px solid rgba(255,255,255,.55); border-radius: 50%; color: white; font-weight: bold; box-shadow: 0 2px 5px rgba(75,34,66,.12); }
+.settings-primary { padding: 12px 20px; border-radius: 11px; color: white; font-weight: bold; }
+.settings-shell switch { border-radius: 16px; min-width: 42px; min-height: 24px; background: rgba(168,110,151,.22); }
+.settings-shell switch slider { border-radius: 50%; min-width: 21px; min-height: 21px; margin: 2px; }
+.picker-controls { padding: 14px 22px 18px; border-top: 1px solid rgba(255,255,255,.35); }
+.picker-controls combobox button { border-radius: 10px; padding: 8px 12px; background: rgba(255,255,255,.38); }
+.fm-gallery-grid { padding: 20px 6px; }
+.fm-gallery-grid flowboxchild { border-radius: 14px; padding: 12px; }
+.fm-gallery-tile { padding: 4px; }
+.fm-gallery-tile .fm-file-name { font-size: 11px; padding-top: 5px; }
+.glass-context-menu { padding: 7px; border-radius: 13px; border: 1px solid rgba(255,255,255,.65); background: #f4e5ef; box-shadow: 0 8px 22px rgba(40,16,38,.22); }
+.glass-context-menu menuitem { border-radius: 8px; padding: 9px 16px; min-width: 190px; background: transparent; }
+.glass-context-menu menuitem:hover { background: rgba(191,105,164,.22); }
+.glass-context-menu separator { margin: 5px 10px; min-height: 1px; background: rgba(128,76,111,.18); }
+
+/* Only the rounded content paints our custom windows. Outer CSS shadows are
+   clipped by the native surface and otherwise leave square corner remnants. */
+window.miracleos-glass-window { background-color: transparent; background-image: none; border: none; box-shadow: none; }
+window.miracleos-glass-window .fm-shell { box-shadow: inset 0 1px rgba(255,255,255,0.7); }
+
+/* Explorer: compact navigation around a quiet gallery surface. */
+.fm-explorer .fm-toolbar { padding: 8px 14px; }
+.fm-explorer .fm-toolbar .fm-control { min-width: 28px; padding: 3px 5px; background: transparent; border: none; box-shadow: none; }
+.fm-explorer .fm-main { padding: 0 10px 0 12px; }
+.fm-explorer .fm-sidebar { padding: 0 0 6px; }
+.fm-explorer .fm-place { padding: 6px 10px; background: transparent; border: none; box-shadow: none; border-radius: 8px; }
+.fm-explorer .fm-place:hover { background: alpha(@system_card,.5); }
+.fm-explorer .fm-place-active { background: alpha(@system_card,.8); box-shadow: inset 3px 0 @system_accent; }
+.fm-explorer .fm-section-label { padding: 6px 10px; font-size: 12px; font-weight: bold; }
+.fm-explorer .fm-content { border-radius: 10px; padding: 20px 18px 10px; }
+.fm-explorer .fm-page-title { font-size: 30px; padding: 4px 0 8px; }
+.fm-explorer .fm-search { min-height: 28px; padding: 2px 12px; }
+.fm-explorer .fm-path { min-height: 28px; padding: 2px 14px; }
+.fm-explorer .fm-gallery-grid { padding: 12px 4px; }
+.fm-explorer .fm-gallery-grid flowboxchild { border-radius: 5px; padding: 7px; }
+.fm-explorer .fm-gallery-tile { padding: 0; }
+.fm-explorer .fm-footer { padding: 5px 12px; }
+.fm-explorer .fm-footer .fm-control { min-width: 25px; min-height: 24px; padding: 2px 6px; border-radius: 9px; }
+.fm-explorer .fm-status { padding: 4px 8px; font-size: 11px; }
+.fm-explorer .fm-tag-0 { border-left: 3px solid #ef5865; }
+.fm-explorer .fm-tag-1 { border-left: 3px solid #329df0; }
+.fm-explorer .fm-tag-2 { border-left: 3px solid #f4bf30; }
+.fm-explorer .fm-tag-3 { border-left: 3px solid #36ba77; }
+.fm-explorer .fm-tag-4 { border-left: 3px solid #ba56e5; }
+.fm-explorer .fm-place { min-height: 20px; padding: 3px 10px; }
+.fm-explorer .fm-section-label { letter-spacing: 0; padding: 2px 10px; }
+.fm-explorer .fm-tag-0, .fm-explorer .fm-tag-1, .fm-explorer .fm-tag-2, .fm-explorer .fm-tag-3, .fm-explorer .fm-tag-4 { border-left: none; }
+.fm-explorer .fm-tag-0 .fm-tag-dot { color: #ef5865; }
+.fm-explorer .fm-tag-1 .fm-tag-dot { color: #329df0; }
+.fm-explorer .fm-tag-2 .fm-tag-dot { color: #f4bf30; }
+.fm-explorer .fm-tag-3 .fm-tag-dot { color: #36ba77; }
+.fm-explorer .fm-tag-4 .fm-tag-dot { color: #ba56e5; }
+
+.fm-tabs { padding: 2px 12px 0; }
+.fm-tab { border-radius: 10px 10px 0 0; padding: 2px 4px; }
+.fm-tab button { min-height: 22px; padding: 3px 8px; background: transparent; border: none; box-shadow: none; }
+.fm-tab-active { background: alpha(@system_card,.8); }
+.fm-tab:hover { background: alpha(@system_card,.5); }
+.fm-dialog { padding: 22px; }
+
+.glass-dialog { border-radius: 18px; }
+.glass-dialog .dialog-titlebar { background: transparent; min-height: 38px; padding: 4px 8px 4px 16px; }
+.glass-dialog .glass-window-title { font-size: 13px; font-weight: 600; }
+.glass-dialog .fm-dialog { padding: 10px 24px 22px; }
+.glass-dialog .dialog-heading { font-size: 23px; font-weight: bold; }
+.glass-dialog .fm-muted { font-size: 13px; }
+.dialog-preview { padding: 10px 12px; border-radius: 12px; background: rgba(70,35,65,.06); }
+.dialog-filename { font-size: 14px; font-weight: bold; }
+.dialog-action { min-height: 34px; padding: 9px 14px; border-radius: 13px; border: 1px solid rgba(70,35,65,.12); background: rgba(255,255,255,.5); }
+.dialog-action label { font-size: 15px; font-weight: 600; }
+.dialog-action:hover { background: rgba(255,255,255,.8); }
+.dialog-key { font-family: monospace; padding: 3px 7px; border-radius: 6px; background: rgba(70,35,65,.08); }
+.glass-dialog .dialog-cancel { background: transparent; border-color: transparent; min-height: 26px; }
+.glass-dialog .dialog-cancel:hover { background: rgba(70,35,65,.06); }
+.taskbar-color-menu menuitem { min-width: 0; }
+.taskbar-color-menu .taskbar-color-choice { padding: 5px 12px; min-height: 28px; }
+.taskbar-color-menu .taskbar-color-dot { font-size: 26px; }
+.taskbar-color-menu { border-radius: 26px; padding: 10px; }
+.taskbar-color-menu .taskbar-color-choice { border-radius: 999px; min-width: 28px; min-height: 28px; padding: 5px; }
+.taskbar-color-menu menuitem:last-child { border-radius: 18px; }
+.drag-window-overview {padding:14px;border-radius:18px;background:alpha(@system_surface,.97);border:1px solid alpha(@system_text,.2);}
+.drag-window-card {padding:12px;border-radius:13px;background:alpha(@system_card,.85);border:1px solid alpha(@system_text,.13);color:@system_text;}
+.drag-window-card:hover {background:alpha(@system_accent,.2);}
+.drag-window-overview label {color:@system_text;}
+
+/* One UI for the status strip and quick controls. */
+.bar-status-button {background:alpha(@system_card,.85);color:@system_text;border:1px solid alpha(@system_text,.10);border-radius:24px;padding:10px 13px;box-shadow:none;min-height:18px;min-width:18px;}
+.bar-status-button:hover {background:alpha(@system_accent,.35);}
+.bar-status-button image {color:@system_text;margin:0;}
+.bar-clock {color:white;font-size:24px;font-weight:700;}
+.bar-date {color:white;font-size:14px;font-weight:600;}
+.quick-panel {background-image:linear-gradient(145deg,alpha(@system_surface,.98),alpha(@system_card,.97));color:@system_text;border:1px solid alpha(@system_text,.14);border-radius:28px;padding:20px;}
+.quick-panel label {color:@system_text;font-size:11px;}
+.quick-panel .quick-title {font-size:18px;font-weight:700;}
+.quick-close {background:alpha(@system_card,.6);border:none;border-radius:24px;color:@system_text;min-width:26px;min-height:26px;box-shadow:none;}
+.quick-tile {background:alpha(@system_card,.7);background-image:none;color:@system_text;border:1px solid alpha(@system_text,.08);border-radius:20px;padding:12px 5px;box-shadow:none;min-height:56px;}
+.quick-tile:hover {background:alpha(@system_accent,.25);}
+.quick-tile.quick-active {background:@system_accent;color:white;}
+.quick-tile.quick-active label,.quick-tile.quick-active image {color:white;}
+.quick-tile:disabled {opacity:.36;}
+.quick-panel scale trough {background:alpha(@system_text,.12);border-radius:20px;min-height:12px;}
+.quick-panel scale highlight {background:@system_accent;border-radius:20px;}
+.quick-panel scale slider {background:@system_text;border-radius:50%;min-height:20px;min-width:20px;}
+.quick-panel scale:disabled {opacity:.3;}
+.quick-tile:disabled {background:alpha(@system_text,.04);background-image:none;}
+/* Compact quick settings, shared system palette and native controls. */
+.quick-panel {background-image:none;background-color:alpha(@system_card,.97);border:1px solid alpha(white,.88);border-radius:18px;padding:14px 18px;box-shadow:0 8px 28px alpha(black,.15);}
+.quick-panel label {font-size:12px;}
+.quick-panel .quick-title {font-size:16px;font-weight:700;}
+.quick-icon-button {background:transparent;background-image:none;border:none;box-shadow:none;border-radius:10px;padding:0;min-width:36px;min-height:36px;}
+.quick-icon-button:hover {background:alpha(@system_text,.10);}
+.quick-tile {background-color:alpha(white,.55);background-image:none;border:1px solid alpha(@system_text,.10);border-radius:14px;padding:0 12px;min-height:60px;box-shadow:none;}
+.quick-tile .quick-tile-title {font-size:14px;font-weight:600;}
+.quick-tile .quick-tile-state {font-size:12px;opacity:.72;}
+.quick-tile.quick-active {background-color:@system_accent;background-image:none;border-color:@system_accent;}
+.quick-tile:disabled {background-color:alpha(@system_surface,.65);opacity:.40;}
+.quick-sliders {background:alpha(@system_text,.055);border-radius:14px;padding:12px 14px;}
+.quick-slider-title {font-weight:600;}
+.quick-slider-value {font-family:monospace;font-size:11px;opacity:.70;}
+.quick-panel scale {padding:6px 0;}
+.quick-panel scale trough {min-height:6px;background:alpha(@system_text,.18);border-radius:3px;}
+.quick-panel scale highlight {background:@system_accent;border-radius:3px;}
+.quick-panel scale slider {min-width:16px;min-height:16px;background:@system_accent;border:1px solid alpha(white,.7);box-shadow:none;}
+.quick-avatar {min-width:30px;min-height:30px;border-radius:50%;background:@system_text;color:@system_card;font-weight:700;}
+.quick-panel .quick-avatar {color:@system_card;}
+.quick-media {background:#3a2233;border-radius:16px;padding:14px;box-shadow:0 6px 10px alpha(black,.12);}
+.quick-panel .quick-media label {color:#ffdaef;}
+.quick-panel .quick-media .quick-track {font-size:14px;font-weight:700;color:white;}
+.quick-media-art {min-width:52px;min-height:52px;background:#614558;border-radius:12px;}
+.quick-media-badge {background:#614558;border-radius:12px;padding:4px 9px;font-size:11px;font-weight:600;}
+.quick-media .quick-media-play {background:#ffdaef;border-radius:50%;min-width:48px;min-height:48px;}
+.quick-media .quick-icon-button:hover {background:alpha(white,.15);}
+.quick-media scale trough {min-height:4px;background:#785a70;}
+.quick-media scale highlight {background:#ffdaef;}
+.quick-media scale slider {background:#ffdaef;border:none;min-width:14px;min-height:14px;}
+.quick-error {color:@system_text;opacity:.8;}
+.bar-quick-tray,.bar-date-pill,.bar-brightness-pill {background:alpha(@system_card,.9);background-image:none;color:@system_text;border:1px solid alpha(white,.9);border-radius:24px;box-shadow:none;min-height:42px;padding:0 16px;}
+.bar-quick-tray:hover,.bar-quick-tray.quick-tray-active {background:@system_accent;color:white;border-color:@system_accent;}
+.bar-quick-tray:hover image,.bar-quick-tray.quick-tray-active image {color:white;}
+.bar-brightness-pill {min-width:42px;padding:0;}
+.bar-date-pill .bar-clock {color:@system_text;font-size:16px;font-weight:700;}
+.bar-date-pill .bar-date {color:@system_text;font-size:12px;font-weight:400;}
+.quick-window {background:transparent;background-image:none;}
+
+.quick-panel scale trough {padding:0;border:none;box-shadow:none;}
+.quick-panel scale slider {margin:-6px 0;}
+.quick-panel scale highlight {min-height:6px;padding:0;border:none;}
+.quick-media scale slider {margin:-5px 0;}
+
+/* The compositor supplies the outside frame in a central-decoration session. */
+.miracleos-server-window .fm-shell,
+.miracleos-server-window .fm-explorer,
+.miracleos-server-window .settings-shell,
+.miracleos-server-window .terminal-shell,
+.miracleos-server-window .fm-dialog {
+  border-radius:0;
+  border:none;
+  box-shadow:none;
+}
+
+window.popup-dismiss-shield {background:transparent; border:0; box-shadow:none;}
+.free-start {background:alpha(@system_card,.97);color:@system_text;border:1px solid alpha(white,.65);border-radius:28px;padding:18px 22px 12px;}
+.free-start-title {font-size:22px;font-weight:700;}
+.free-start-apps {background:alpha(@system_surface,.45);border-radius:18px;padding:12px;}
+.canvas-widget {background:alpha(@system_card,.95);color:@system_text;border:1px solid alpha(@system_text,.13);border-radius:20px;padding:12px;}
+.canvas-widget-title {font-size:12px;font-weight:600;padding:3px;}
+.canvas-clock {font-size:38px;font-weight:700;}
+.canvas-subtitle,.canvas-resize {color:@system_muted;}
+.canvas-widget textview,.canvas-widget textview text {background:transparent;color:@system_text;}
+.canvas-app {background:alpha(@system_card,.65);padding:8px;}
+.canvas-app button {background:transparent;border:0;box-shadow:none;}
+.center-dock {background:alpha(@system_card,.92);border:1px solid alpha(white,.65);border-radius:28px;padding:5px 8px;}
+.center-dock button {min-width:32px;min-height:32px;padding:4px;border-radius:50%;}
+.center-dock .dock-pinned {box-shadow:inset 0 -2px @system_accent;}
+.dock-drop-hint {padding:12px;border:1px dashed @system_accent;border-radius:18px;color:@system_text;}
+.canvas-music {background:#3a2233;background-image:none;color:#ffd9ec;border:1px solid alpha(#ffd9ec,.18);border-radius:22px;padding:14px 16px 6px;}
+.canvas-music label,.canvas-music .canvas-widget-title,.canvas-music .canvas-resize {color:#ffd9ec;}
+.canvas-music .canvas-widget-title {font-size:11px;letter-spacing:1px;opacity:.7;}
+.canvas-track {font-size:14px;font-weight:700;}
+.canvas-artist {font-size:12px;opacity:.8;}
+.canvas-music-art {background:#614558;border-radius:12px;}
+.canvas-music .canvas-player-button {background:transparent;border:0;box-shadow:none;min-width:32px;min-height:32px;padding:3px;border-radius:50%;}
+.canvas-music .canvas-player-button:hover {background:alpha(#ffd9ec,.15);}
+.canvas-music .canvas-player-main {background:#ffd9ec;min-width:38px;min-height:38px;}
+.canvas-music .canvas-player-main:hover {background:#ffe8f3;}
+.canvas-music-progress {padding:6px 0;}
+.canvas-music-progress trough {min-height:3px;background:#684b60;border:0;}
+.canvas-music-progress highlight {min-height:3px;background:#ffd9ec;border:0;}
+.canvas-music-progress slider {min-width:10px;min-height:10px;margin:-4px 0;background:#ffd9ec;border:0;box-shadow:none;}
+button.canvas-app-icon, button.canvas-app-icon:hover, button.canvas-app-icon:active {background:transparent;background-image:none;border:0;box-shadow:none;padding:0;margin:0;min-width:32px;min-height:32px;border-radius:6px;}
+button.canvas-app-icon:hover {background:alpha(@system_accent,.12);}
+.canvas-frame {background:alpha(@system_card,.35);border:1px dashed alpha(@system_accent,.8);border-radius:20px;padding:12px;}
+.canvas-frame > .canvas-widget-title {color:@system_text;}
+/* Widget surfaces retain their border while only their contents scroll. */
+.widget-clock-large {background:#3a2233;color:#ffffff;border-radius:22px;padding:16px;}
+.widget-clock-large label {color:#ffd9ec;}
+.demo-clock-time {font-size:34px;font-weight:700;}
+.demo-clock-day {font-size:14px;font-weight:600;}
+.demo-clock-date {font-size:13px;}
+.setup-background {background:linear-gradient(135deg,#eab4d3,#ddc4ed,#f4d1c0);}
+.setup-card {background:rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.9);border-radius:30px;padding:30px 38px;color:#3a2233;}
+.setup-card label {color:#3a2233;}
+.setup-heading {font-size:30px;font-weight:700;}
+.setup-brand {font-size:13px;font-weight:700;}
+.setup-entry {min-height:44px;padding:4px 16px;border-radius:15px;background:rgba(255,255,255,.8);color:#3a2233;}
+.setup-card button {border-radius:15px;min-height:38px;}
+.setup-card check {min-width:18px;min-height:18px;border:1px solid #927086;background:#fff7fc;border-radius:5px;}
+.setup-card check:checked {background:#b8306a;color:#ffffff;}
+.setup-confirmation {background:#f4e6ef;color:#3a2233;}
+.setup-confirmation label {color:#3a2233;font-size:14px;}
+.setup-confirmation button {background:rgba(255,255,255,.9);color:#3a2233;border:1px solid #b58aa5;min-height:36px;border-radius:14px;}
+.setup-card .canvas-music label {color:#ffd9ec;}
+.spotify-overlay {background:#3a2233;color:#ffffff;border-radius:24px;padding:24px;border:1px solid rgba(255,217,236,.25);}
+.spotify-overlay label {color:#ffd9ec;}
+.spotify-overlay-title {font-size:25px;font-weight:700;}
+.spotify-overlay-status {font-size:12px;font-weight:600;}
+.spotify-overlay button {border-radius:24px;background:rgba(255,217,236,.12);color:#ffd9ec;min-height:34px;}
+.spotify-overlay .canvas-player-main {background:#ffd9ec;color:#3a2233;min-width:46px;min-height:46px;}
+.spotify-overlay button.spotify-icon-button {min-width:32px;min-height:32px;padding:6px;border-radius:50%;border:1px solid rgba(255,217,236,.12);box-shadow:none;transition:background-color 150ms ease;}
+.spotify-overlay button.spotify-icon-button:hover {background:rgba(255,217,236,.24);}
+.spotify-overlay button.spotify-icon-button:checked {background:#80516e;}
+.spotify-overlay button.spotify-icon-button:disabled {opacity:.45;}
+.spotify-overlay button.canvas-player-main {min-width:44px;min-height:44px;padding:8px;background:#ffd9ec;color:#3a2233;box-shadow:0 4px 10px rgba(0,0,0,.18);}
+.spotify-overlay button.canvas-player-main:hover {background:#fff0f8;}
+.spotify-overlay button.canvas-player-main image {color:#3a2233;}
+.spotify-overlay scale {padding:10px 7px;}
+.spotify-overlay scale trough {background:rgba(255,217,236,.18);min-height:4px;border:0;border-radius:999px;box-shadow:none;}
+.spotify-overlay scale highlight {background:linear-gradient(to right,#c983aa,#ffd9ec);min-height:4px;border:0;border-radius:999px;box-shadow:none;}
+.spotify-overlay scale slider {background:#ffd9ec;background-image:none;min-width:12px;min-height:12px;margin:-4px 0;border:0;border-radius:50%;box-shadow:0 2px 5px rgba(0,0,0,.22);transition:box-shadow 150ms ease,background-color 150ms ease;}
+.spotify-overlay scale slider:hover,.spotify-overlay scale slider:active {background:#fff2f9;box-shadow:0 0 0 4px rgba(255,217,236,.15),0 2px 5px rgba(0,0,0,.22);}
+.spotify-overlay scale:disabled {opacity:.4;}
+.widget-notes {background:alpha(@system_card,.94);border:1px solid alpha(white,.75);border-radius:22px;}
+.demo-note-row {background:alpha(@system_text,.04);border-left:3px solid @system_accent;border-radius:12px;padding:4px;}
+.demo-note-row button {border:0;background:transparent;box-shadow:none;border-radius:50%;padding:3px;min-width:24px;min-height:24px;}
+.demo-note-row checkbutton check {border-radius:50%;}
+.demo-note-add {background:@system_accent;color:white;border-radius:12px;min-width:32px;}
+.widget-quick-note {background:#ffe9a8;color:#3a2a12;border-radius:22px;}
+.widget-quick-note label,.widget-quick-note textview,.widget-quick-note textview text {color:#3a2a12;}
+.widget-quick-note .canvas-widget-title {font-size:12px;font-weight:700;letter-spacing:1px;}
+
+/* RGB light only on the currently focused setup input. */
+.setup-entry, .setup-card combobox button {
+  border: 1px solid rgba(170, 110, 220, .65);
+  box-shadow: none;
+  transition: box-shadow 180ms ease, border-color 180ms ease;
+}
+.setup-entry:focus, .setup-card combobox button:focus {
+  border-color: rgba(210, 170, 255, .95);
+  box-shadow: -4px 0 13px rgba(255, 55, 105, .7), 0 4px 13px rgba(55, 220, 135, .55), 4px -2px 13px rgba(65, 115, 255, .7);
+}.setup-spotify-progress { background: #3a2233; color: #ffffff; border-radius: 28px; padding: 9px 12px 9px 22px; }
+.setup-spotify-progress label { color: #ffffff; }
+.setup-spotify-progress button { background: #63475c; color: #ffffff; border: none; border-radius: 20px; padding: 8px 16px; }
+.setup-spotify-sidebar {color:#3a2233;padding:12px;}
+.setup-spotify-sidebar label {color:#3a2233;}
+.setup-spotify-sidebar button {border-radius:18px;padding:10px 16px;background:rgba(255,245,252,.8);color:#3a2233;}
+.setup-spotify-header {background:transparent;border:0;padding:0;}
+.setup-spotify-title {padding-left:14px;}
+.setup-spotify-qr-hint {color:#3a2233;font-size:16px;font-weight:600;padding:8px 0;}
+.setup-spotify-header label {color:#3a2233;}
+.setup-spotify-header button {border:0;border-radius:16px;padding:2px 10px;min-height:22px;min-width:16px;background:transparent;color:#3a2233;}
+.setup-spotify-header button:disabled {opacity:.3;}
+.setup-spotify-header .setup-spotify-close {background:#b8306a;color:white;}
+.setup-confirm-shade {background:rgba(40,20,35,.46);}
+.setup-spotify-confirm-card {background:#fff5fc;}
