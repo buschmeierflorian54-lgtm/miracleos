@@ -11,7 +11,7 @@
 | Änderungen und Teststand | [Release vom 19.10.2026](https://github.com/buschmeierflorian54-lgtm/miracleos/releases/tag/v0.1.0-test.20261019) |
 | Frühere Versionen | [Alle Releases](https://github.com/buschmeierflorian54-lgtm/miracleos/releases) |
 
-Die Downloads gehören zu diesem privaten Repository und benötigen entsprechenden GitHub-Zugriff. Die aktuelle ISO enthält neuere Änderungen als der derzeit veröffentlichte Quellstand; Details stehen im Release.
+Das Repository und die Downloads sind öffentlich. Automatische Systemkomponenten-Updates werden separat als signierte Release-Pakete veröffentlicht; siehe [Updates einrichten](docs/UPDATES.md). Die ISO vom 19.10.2026 benötigt dafür die einmalige Installation des Updater-Pakets.
 
 **Direkt zu:** [Installation](#installation) · [Funktionen](#funktionen) · [Entwicklung](#entwickeln-und-testen) · [Projektstruktur](#projektstruktur)
 
@@ -40,6 +40,7 @@ BIOS und UEFI sind im Image vorgesehen. Secure Boot ist nicht eingerichtet. Der 
 - Offizielle Spotify-App, geführte Anmeldung und lokale Musiksteuerung.
 - Spotify-Icon öffnet die echte App; **Alt + F** schaltet das Overlay ein/aus. Keine Spotify-Web-API-Suche und keine zusätzlichen API-Zugangsdaten.
 - Reset-Ablauf mit Bestätigung, Passwortprüfung und zweiter Bestätigung; benötigt die passende ISO und löscht die Systemplatte.
+- Automatische, signierte Updates aus GitHub Releases mit Statusanzeige, Pausieren und Wiederherstellung der vorherigen Version.
 
 ## Entwickeln und testen
 

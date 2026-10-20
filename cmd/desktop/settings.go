@@ -565,6 +565,10 @@ func settingsCommand(command string, args ...string) string {
 }
 
 func (ui *settingsUI) information(content *gtk.Box, name string) {
+	if name == "Updates" {
+		ui.updates(content)
+		return
+	}
 	if name == "Apps" {
 		ui.frameColors(content)
 		search, _ := gtk.EntryNew()

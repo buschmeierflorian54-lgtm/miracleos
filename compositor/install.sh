@@ -12,6 +12,7 @@ cat > /usr/local/bin/miracleos-session <<'SESSION'
 export GTK_USE_PORTAL=1 XDG_CURRENT_DESKTOP=sway XDG_SESSION_TYPE=wayland
 export WLR_RENDERER=pixman WLR_NO_HARDWARE_CURSORS=1
 export MIRACLEOS_SERVER_DECORATIONS=1
+export MIRACLEOS_GLOBAL_TABS=1
 export QT_WAYLAND_DISABLE_WINDOWDECORATION=1 GTK_CSD=0
 export DBUS_SESSION_BUS_ADDRESS="unix:path=$XDG_RUNTIME_DIR/bus"
 exec /usr/local/libexec/miracleos-sway --unsupported-gpu > "$HOME/sway.log" 2>&1

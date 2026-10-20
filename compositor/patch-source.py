@@ -113,3 +113,8 @@ edit('sway/input/seatop_default.c', '\t// Handle beginning floating move', '''	/
 	}
 
 	// Handle beginning floating move''')
+
+# Global frame tabs: rendering and click handling share the same geometry.
+(root / 'sway/miracleos-tabs.h').write_text(Path(__file__).with_name('miracleos-tabs.h').read_text())
+edit('include/sway/tree/container.h', 'void container_arrange_title_bar(struct sway_container *con);', 'bool miracleos_tab_click(struct sway_container *con, double x);\nvoid container_arrange_title_bar(struct sway_container *con);')
+edit('sway/input/seatop_default.c', '\t\tint width = cont->title_width;', '\t\tif (!mod_pressed && miracleos_tab_click(cont, control_x)) return;\n\t\tint width = cont->title_width;')

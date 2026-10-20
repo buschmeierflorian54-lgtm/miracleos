@@ -1,29 +1,51 @@
-# Planned automatic updates from GitHub
+# Automatische Updates
 
-Automatic updates are a requirement for future work. They are not implemented yet.
+MiracleOS prüft täglich die Releases von [buschmeierflorian54-lgtm/miracleos](https://github.com/buschmeierflorian54-lgtm/miracleos). Das öffentliche Repository erfordert keinen Token. Nach dem Start wartet der Dienst 10 bis 20 Minuten; ausgeschaltete automatische Updates werden respektiert.
 
-## Release contract
+## Nutzung
 
-Publish versioned bundles through GitHub Releases, rather than downloading loose files from a branch. Each bundle must include the desktop executable and its matching `runtime/` helpers. Record the version, Linux architecture, supported system dependencies and checksums in a manifest. Authenticate release metadata and payloads with a trusted signing key; a checksum alone does not prove who published an update.
+In **Einstellungen → Updates** stehen Status, manuelle Aktualisierung, Aktivieren/Pausieren und Wiederherstellung der vorherigen Version zur Verfügung. Manuelle Systemänderungen benötigen das MiracleOS-Passwort. Der Hintergrunddienst installiert ohne weitere Abfrage.
 
-Build and test the whole bundle before publishing. Keep user preferences, passwords, files and VM connection credentials out of release packages.
+Aktualisiert werden der MiracleOS-Desktop, Luna Browser, der angepasste Sway-Compositor, der Tab-Dienst und die mitgelieferten Python-Laufzeitdateien. Laufende Prozesse werden nicht beendet; nach erneuter Anmeldung wird die neue Version verwendet. Debian-Pakete, Kernel, persönliche Daten und Benutzerprofile sind nicht Bestandteil dieses Update-Kanals.
 
-## Installation and recovery
+Für bereits installierte Systeme aus der ISO vom 19.10.2026 muss einmal das Paket `miracleos-updater_0.1.20261020_amd64.deb` aus dem Update-Release installiert werden:
 
-Install versions into separate version directories and point the service at the active version. Download and verify into staging, then switch the active version atomically. Never replace only the executable while leaving incompatible runtime helpers behind. Retain the previous version for rollback if startup or a health check fails.
+```sh
+sudo apt install ./miracleos-updater_0.1.20261020_amd64.deb
+sudo /usr/local/lib/miracleos/update-manager.py apply
+```
 
-The taskbar service must have a stable installation path independent of a developer checkout. Its current `/home/test/desktop` path is a development setup and must be migrated before enabling automatic updates.
+Künftige mit dem aktuellen `scripts/iso/build.sh` gebaute ISOs enthalten den Dienst. Die bereits veröffentlichte ISO vom 19.10.2026 wird durch dieses Release nicht ersetzt.
 
-Keep `/home/<user>/.config/miracleos` and user documents outside installation directories. Handle settings migrations explicitly and keep rollback-compatible backups. System-owned wallpapers, the protected login executable, greetd configuration and other privileged components require a separate authenticated privileged installation step. Never ask an unprivileged updater to overwrite those directly.
+## Prüfung und Wiederherstellung
 
-Use the same verified release package for manual installation and automatic updates. The updater should download in the background and apply according to the user's update policy. Authentication and active file transfers must survive or finish before affected processes restart. A failed update must leave a working desktop available.
+Der Client vertraut dem installierten öffentlichen Ed25519-Schlüssel unter `/etc/miracleos/update-public.pem`. Er prüft die Signatur des Manifests sowie Repository, Architektur, Version, Größe und SHA-256 des Pakets. Archive dürfen nur bekannte Programme und Laufzeitdateien enthalten; Pfadwechsel, Links und doppelte Dateien werden abgewiesen. Es werden keine Skripte aus Releases ausgeführt.
 
-## Follow-up implementation
+Jede Version liegt in einem eigenen Verzeichnis unter `/opt/miracleos/updates/releases`. Ein atomarer Wechsel von `current` aktiviert den vollständigen Satz. Die vorherige Installation bleibt erhalten. Wiederherstellen pausiert automatische Updates, damit die zurückgenommene Version nicht sofort erneut installiert wird. Erneutes Aktivieren ist eine bewusste Entscheidung in den Einstellungen. Alte Versionen werden zunächst nicht automatisch gelöscht; bei weniger als 2 GB freiem Speicher stoppt der Updater.
 
-1. Version/build metadata and reproducible release bundles.
-2. Signed GitHub Release publication with CI tests.
-3. Stable installation paths and a privileged installer where required.
-4. Background checking, staging, verification, activation and health checks.
-5. Rollback tests, settings migrations and update UI.
+Netzwerk-, Signatur- und Downloadfehler belassen die aktive Version. Status: `/var/lib/miracleos/updates/status.json`; Protokoll: `journalctl -u miracleos-update.service`.
 
-Central window controls now also require the version-matched compositor bundle. Include its corresponding upstream source and patch to meet the Sway GPL requirements. Compositor updates activate on the next desktop login; restart only after the user's session policy permits it.
+## Updates veröffentlichen
+
+Der aktuelle Testkanal berücksichtigt auch Vorab-Releases. Ein Release wird nur als Update erkannt, wenn alle drei Assets vorhanden sind:
+
+- `miracleos-update.json`
+- `miracleos-update.json.sig`
+- `miracleos-update-amd64.tar.gz`
+
+`scripts/iso/package-update.py` erstellt diese Assets aus getesteten amd64-Binärdateien. `--sequence` muss für jedes neue Update streng steigen; `--tag` muss dem GitHub-Release-Tag entsprechen. Beispiel:
+
+```sh
+python3 scripts/iso/package-update.py \
+  --desktop /build/miracleos-desktop --luna /build/luna-browser \
+  --sway /build/miracleos-sway --broker /build/miracleos-app-tabs \
+  --key /secure/private-update-key.pem --output /build/release \
+  --tag v0.1.0-update.20261020 --version 0.1.0-update.20261020 \
+  --sequence 2026102001
+```
+
+Den privaten Schlüssel außerhalb von Repository, Release, Update-Paket und ISO aufbewahren. Der öffentliche Schlüssel ist versioniert. Veröffentlichte Assets nicht durch anders signierte Inhalte mit derselben Versionsnummer ersetzen.
+
+## Tests
+
+`python3 -m unittest discover -s scripts/iso -p 'test_*.py'` prüft Installer und Updater, darunter manipulierte Signaturen, fremde Release-Tags, Dateipfade, Links, doppelte Archivdateien, Prüfsummenfehler, Versionsvergleich und Wiederherstellung. Go/GTK-Tests laufen zusätzlich unter Xvfb. Ein Dienstneustart oder neuer ISO-Build ersetzt keinen Test in einer installierten VM.

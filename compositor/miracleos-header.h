@@ -9,6 +9,7 @@ static struct border_colors *container_get_current_colors(struct sway_container 
 #include <strings.h>
 #include <stdio.h>
 #include "sway/tree/view.h"
+#include "miracleos-tabs.h"
 
 // Reload the small, user-owned palette only when the atomically replaced file changes.
 static void miracleos_app_colors(struct sway_container *con, struct border_colors *colors) {
@@ -124,18 +125,36 @@ static void miracleos_render_header(struct sway_container *con, struct border_co
 	if(cairo_surface_status(b->surface)!=CAIRO_STATUS_SUCCESS) {cairo_surface_destroy(b->surface);free(b);return;}
 	cairo_t *cr=cairo_create(b->surface);
 	int right=114, left=width-right-16;
+	struct miracleos_tabs tabs; bool has_tabs=miracleos_read_tabs(con,&tabs);
 	if(left>300) left=300;
 	if(left<100) left=100;
 	// Transparent middle with independent rounded tabs, joining the frame at bottom.
 	miracleos_color(cr,colors->background);
-	miracleos_tab(cr,0,left,height,true); cairo_fill(cr);
+	if(!has_tabs) { miracleos_tab(cr,0,left,height,true); cairo_fill(cr); }
 	miracleos_tab(cr,width-right,right,height,false); cairo_fill(cr);
 	cairo_rectangle(cr,0,height-3,width,3); cairo_fill(cr);
 	miracleos_color(cr,colors->text);
 	// A restrained application glyph; actual title is never treated as markup.
+	if(!has_tabs) {
 	miracleos_round(cr,12,(height-20)/2,20,20,5); cairo_set_line_width(cr,1.4);cairo_stroke(cr);
 	cairo_move_to(cr,16,(height-20)/2+6);cairo_line_to(cr,28,(height-20)/2+6);cairo_stroke(cr);
-	miracleos_text(cr,con->formatted_title,40,(height-17)/2,left-52,true);
+	miracleos_text(cr,has_tabs?tabs.name:con->formatted_title,40,(height-17)/2,left-52,true);
+	}
+	if(has_tabs) {
+		if(tabs.nav) { miracleos_text(cr,"‹",tabs.start+4,(height-17)/2,16,true);
+		miracleos_text(cr,"›",tabs.end-16,(height-17)/2,16,true); }
+		for(int i=0;i<tabs.shown;i++) {
+			int index=tabs.first+i,x=tabs.start+tabs.nav+i*tabs.cell;
+			bool selected=index==tabs.active;
+			miracleos_color(cr,selected?colors->background:colors->child_border);
+			miracleos_round(cr,x+2,selected?0:7,tabs.cell-4,height-(selected?0:7),12);cairo_fill(cr);
+			miracleos_color(cr,colors->text);
+			const char *caption=index==0 && tabs.name[0]?tabs.name:tabs.titles[index];
+			miracleos_text(cr,caption,x+9,(height-17)/2,tabs.cell-35,selected);
+			miracleos_icon(cr,2,x+tabs.cell-21,(height-16)/2);
+		}
+		if(tabs.can_new)miracleos_text(cr,"+",tabs.end+9,(height-17)/2,22,true);
+	}
 	
 	int position=width-right;
 	for(int i=0;i<3;i++) {

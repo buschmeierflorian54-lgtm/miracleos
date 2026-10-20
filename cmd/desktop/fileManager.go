@@ -1,6 +1,8 @@
 package main
 
 import (
+	"github.com/MiracleOS-Team/desktop/internal/apptabs"
+	"strconv"
 	"encoding/json"
 	"fmt"
 	"net/url"
@@ -29,6 +31,8 @@ var filePlaces = []filePlace{
 }
 
 type glassFileManager struct {
+	frameTabs *apptabs.Client
+	nextFrameTab int
 	overlay              *gtk.Overlay
 	dragOverview         gtk.IWidget
 	dragOverviewStop     func()
@@ -100,12 +104,19 @@ func newGlassFileManager(path string, picker *filePickerOptions) *glassFileManag
 	menuClass(root, "fm-explorer")
 	root.PackStart(glassWindowHeader(win, windowTitle), false, false, 0)
 	if picker == nil {
+		fm.frameTabs, _ = apptabs.Connect(func(a apptabs.Action) {
+			glib.IdleAdd(func() { if !fm.alive.Load(){return}; switch a.Action {
+			case "new": fm.openTab(fm.home)
+			case "select", "close": id,e:=strconv.Atoi(a.ID);if e==nil{for i,t:=range fm.tabs{if t.frameID==id{if a.Action=="select"{fm.saveTab();fm.selectTab(i)}else{fm.closeTab(i)};break}}}
+			} })
+		})
+		win.Connect("destroy",func(){fm.frameTabs.Close()})
 		fm.tabsBar, _ = gtk.BoxNew(gtk.ORIENTATION_HORIZONTAL, 4)
 		menuClass(fm.tabsBar, "fm-tabs")
 		tabScroll, _ := gtk.ScrolledWindowNew(nil, nil)
 		tabScroll.SetPolicy(gtk.POLICY_AUTOMATIC, gtk.POLICY_NEVER)
 		tabScroll.Add(fm.tabsBar)
-		root.PackStart(tabScroll, false, false, 0)
+		if fm.frameTabs==nil { root.PackStart(tabScroll, false, false, 0) }
 	}
 	toolbar, _ := gtk.BoxNew(gtk.ORIENTATION_HORIZONTAL, 7)
 	menuClass(toolbar, "fm-toolbar")

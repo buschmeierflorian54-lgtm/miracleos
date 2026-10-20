@@ -22,6 +22,7 @@ type desktopNode struct {
 		Class string `json:"class"`
 	} `json:"window_properties"`
 	ID            int64         `json:"id"`
+	Marks         []string      `json:"marks"`
 	FullscreenMode int          `json:"fullscreen_mode"`
 	Name          string        `json:"name"`
 	PID           int           `json:"pid"`
@@ -99,6 +100,7 @@ func minimizedWindowsFromTree(tree desktopNode) []desktopNode {
 		if node.Name == "__i3_scratch" {
 			var collect func(desktopNode)
 			collect = func(child desktopNode) {
+				for _,mark:=range child.Marks { if mark=="__miracleos_tab_hidden" {return} }
 				if child.PID > 0 && child.Name != "" {
 					result = append(result, child)
 					return

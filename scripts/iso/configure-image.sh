@@ -10,6 +10,18 @@ echo 'deb [signed-by=/etc/apt/keyrings/spotify.gpg] https://repository.spotify.c
 apt-get update
 apt-get install -y spotify-client
 install -m 644 /usr/share/spotify/spotify.desktop /usr/share/applications/spotify.desktop
+cat > /usr/local/bin/spotify <<'EOF'
+#!/bin/sh
+# Prefer native Wayland; keep URI arguments and an X11 fallback.
+if [ -n "${WAYLAND_DISPLAY:-}" ]; then
+  exec /usr/bin/spotify --ozone-platform=wayland "$@"
+fi
+exec /usr/bin/spotify "$@"
+EOF
+chmod 755 /usr/local/bin/spotify
+if [ -x /usr/local/lib/miracleos/configure-updates.sh ]; then
+  /usr/local/lib/miracleos/configure-updates.sh
+fi
 rm /tmp/spotify-key.asc
 ln -sf /opt/miracleos/miracleos-desktop /usr/local/bin/miracleos-desktop
 ln -sf /opt/miracleos/miracleos-desktop /usr/local/bin/miracleos-login
@@ -61,7 +73,7 @@ cat > /usr/local/bin/miracleos-session <<'EOF'
 #!/bin/sh
 export GTK_USE_PORTAL=1 XDG_CURRENT_DESKTOP=sway XDG_SESSION_TYPE=wayland
 export WLR_NO_HARDWARE_CURSORS=1
-export MIRACLEOS_SERVER_DECORATIONS=1 QT_WAYLAND_DISABLE_WINDOWDECORATION=1 GTK_CSD=0
+export MIRACLEOS_SERVER_DECORATIONS=1 MIRACLEOS_GLOBAL_TABS=1 QT_WAYLAND_DISABLE_WINDOWDECORATION=1 GTK_CSD=0
 export DBUS_SESSION_BUS_ADDRESS="unix:path=$XDG_RUNTIME_DIR/bus"
 if systemd-detect-virt --quiet; then export WLR_RENDERER=pixman; fi
 exec /usr/local/libexec/miracleos-sway --unsupported-gpu --config "$HOME/.config/sway/config"
@@ -74,9 +86,15 @@ exec dbus-run-session sway --unsupported-gpu --config /etc/miracleos/greeter-con
 EOF
 cat > /usr/local/bin/miracleos-start <<'EOF'
 #!/bin/sh
-dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_SESSION_TYPE
-systemctl --user import-environment WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_SESSION_TYPE DBUS_SESSION_BUS_ADDRESS GTK_USE_PORTAL MIRACLEOS_SERVER_DECORATIONS QT_WAYLAND_DISABLE_WINDOWDECORATION GTK_CSD
-systemctl --user start miracleos-bar.service
+dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_SESSION_TYPE MIRACLEOS_GLOBAL_TABS
+systemctl --user import-environment WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_SESSION_TYPE DBUS_SESSION_BUS_ADDRESS GTK_USE_PORTAL MIRACLEOS_GLOBAL_TABS MIRACLEOS_SERVER_DECORATIONS QT_WAYLAND_DISABLE_WINDOWDECORATION GTK_CSD
+systemctl --user daemon-reload
+systemctl --user restart miracleos-bar.service
+if [ "${MIRACLEOS_GLOBAL_TABS:-0}" = 1 ]; then
+  systemctl --user import-environment MIRACLEOS_GLOBAL_TABS SWAYSOCK
+  systemctl --user reset-failed miracleos-app-tabs.service || true
+  systemctl --user restart miracleos-app-tabs.service
+fi
 if [ -f /run/live/medium/live/filesystem.squashfs ]; then
   exec miracleos-desktop --install-system
 fi
@@ -129,6 +147,15 @@ Restart=always
 RestartSec=2
 Environment=GDK_BACKEND=wayland
 KillMode=process
+EOF
+cat > /etc/systemd/user/miracleos-app-tabs.service <<'EOF'
+[Unit]
+Description=MiracleOS global application tabs
+After=miracleos-bar.service
+[Service]
+ExecStart=/opt/miracleos/miracleos-desktop --app-tabs
+Restart=on-failure
+RestartSec=2
 EOF
 cat > /etc/miracleos/greeter-config <<'EOF'
 output * bg /usr/share/backgrounds/miracleos/light.png fill

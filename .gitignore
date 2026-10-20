@@ -46,3 +46,6 @@ known_hosts
 *.key
 .env.*
 !*.example
+
+# Public trust anchor for signed system updates
+!scripts/iso/update-public.pem

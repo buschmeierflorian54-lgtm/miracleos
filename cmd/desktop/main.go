@@ -20,6 +20,8 @@
 package main
 
 import (
+	"context"
+	"github.com/MiracleOS-Team/desktop/internal/apptabs"
 	_ "embed"
 	"log"
 	"os"
@@ -94,6 +96,7 @@ func firstN(s string, n int) string {
 }
 
 func main() {
+	if len(os.Args)>1 && os.Args[1]=="--app-tabs" { if err:=apptabs.Run(context.Background());err!=nil{log.Fatal(err)};return }
 	runtime.LockOSThread()
 	if len(os.Args) > 1 && os.Args[1] == "--login" {
 		gtk.Init(&os.Args)

@@ -217,6 +217,11 @@ def main():
     action=sys.argv[1] if len(sys.argv)>1 else ''
     if action=='auto-reset':return auto_reset()
     data=json.load(sys.stdin)
+    if action=='update':
+        operation=data.get('action') if isinstance(data,dict) else None
+        if operation not in ('apply','enable','disable','rollback'):
+            raise RuntimeError('Ungültige Update-Aktion.')
+        return run('/usr/local/lib/miracleos/update-manager.py',operation)
     if action=='disks':
         if not live():raise RuntimeError('Bitte von der MiracleOS-ISO starten.')
         return json.dumps(disk_list())
@@ -232,8 +237,11 @@ def main():
 
 if __name__=='__main__':
     try:
-        with open('/run/miracleos-operation.lock','w') as lock:
-            fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+        if len(sys.argv)>1 and sys.argv[1]=='update':
             print(main())
+        else:
+            with open('/run/miracleos-operation.lock','w') as lock:
+                fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+                print(main())
     except Exception as error:
         print(str(error),file=sys.stderr);sys.exit(1)

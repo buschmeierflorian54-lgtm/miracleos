@@ -67,6 +67,11 @@ network-manager
 network-manager-gnome
 pipewire
 pipewire-pulse
+pulseaudio-utils
+alsa-utils
+hyperv-daemons
+libwebkit2gtk-4.1-0
+libjson-glib-1.0-0
 wireplumber
 lxpolkit
 xdg-desktop-portal
@@ -77,6 +82,7 @@ fonts-dejavu
 fonts-noto-color-emoji
 locales
 ca-certificates
+openssl
 curl
 gnupg
 rsync
@@ -92,6 +98,9 @@ install -m 755 /tmp/miracleos-desktop config/includes.chroot/opt/miracleos/mirac
 install -m 755 /home/builder/sway-source/sway-1.10.1/build-miracleos/sway/sway config/includes.chroot/usr/local/libexec/miracleos-sway
 install -m 755 "$repo"/runtime/*.py config/includes.chroot/opt/miracleos/runtime/
 install -m 755 "$repo/scripts/iso/system-helper.py" config/includes.chroot/usr/local/lib/miracleos/
+install -m 755 "$repo/scripts/iso/update-manager.py" config/includes.chroot/usr/local/lib/miracleos/
+install -D -m 644 "$repo/scripts/iso/update-public.pem" config/includes.chroot/etc/miracleos/update-public.pem
+install -m 755 "$repo/scripts/iso/configure-updates.sh" config/includes.chroot/usr/local/lib/miracleos/
 install -m 755 "$repo/scripts/iso/configure-image.sh" config/hooks/live/0900-miracleos.hook.chroot
 cp "$repo/cmd/desktop/images/wallpapers/"*.png config/includes.chroot/usr/share/backgrounds/miracleos/
 image_id=$(cat /tmp/miracleos-desktop "$repo/scripts/iso/system-helper.py" "$repo/scripts/iso/configure-image.sh" "$repo/scripts/iso/grub.cfg" /home/builder/sway-source/sway-1.10.1/build-miracleos/sway/sway | sha256sum | cut -d' ' -f1)
