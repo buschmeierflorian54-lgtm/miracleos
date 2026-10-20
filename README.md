@@ -2,16 +2,16 @@
 
 ## Releases und Downloads
 
-**Aktuelle Testversion: 19.10.2026 · amd64 · ca. 1,7 GB**
+**Aktuelle Testversion: 20.10.2026 · amd64 · ca. 1,7 GB**
 
 | Download | Link |
 | --- | --- |
-| Installations-ISO | [ISO herunterladen](https://github.com/buschmeierflorian54-lgtm/miracleos/releases/download/v0.1.0-test.20261019/MiracleOS-0.1-test.20261019-amd64.iso) |
-| SHA-256-Prüfsumme | [Prüfsumme herunterladen](https://github.com/buschmeierflorian54-lgtm/miracleos/releases/download/v0.1.0-test.20261019/MiracleOS-0.1-test.20261019-SHA256SUMS.txt) |
-| Änderungen und Teststand | [Release vom 19.10.2026](https://github.com/buschmeierflorian54-lgtm/miracleos/releases/tag/v0.1.0-test.20261019) |
+| Installations-ISO | [ISO herunterladen](https://github.com/buschmeierflorian54-lgtm/miracleos/releases/download/v0.1.0-test.20261020/MiracleOS-0.1-test.20261020-amd64.iso) |
+| SHA-256-Prüfsumme | [Prüfsumme herunterladen](https://github.com/buschmeierflorian54-lgtm/miracleos/releases/download/v0.1.0-test.20261020/MiracleOS-0.1-test.20261020-SHA256SUMS.txt) |
+| Änderungen und Teststand | [Release vom 20.10.2026](https://github.com/buschmeierflorian54-lgtm/miracleos/releases/tag/v0.1.0-test.20261020) |
 | Frühere Versionen | [Alle Releases](https://github.com/buschmeierflorian54-lgtm/miracleos/releases) |
 
-Das Repository und die Downloads sind öffentlich. Automatische Systemkomponenten-Updates werden separat als signierte Release-Pakete veröffentlicht; siehe [Updates einrichten](docs/UPDATES.md). Die ISO vom 19.10.2026 benötigt dafür die einmalige Installation des Updater-Pakets.
+Das Repository und die Downloads sind öffentlich. Automatische Systemkomponenten-Updates werden separat als signierte Release-Pakete veröffentlicht; siehe [Updates einrichten](docs/UPDATES.md). Die neue ISO vom 20.10.2026 enthält die Update-Funktion bereits. Ältere Installationen können das Updater-Paket nachrüsten.
 
 **Direkt zu:** [Installation](#installation) · [Funktionen](#funktionen) · [Entwicklung](#entwickeln-und-testen) · [Projektstruktur](#projektstruktur)
 
