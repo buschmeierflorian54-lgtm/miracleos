@@ -240,7 +240,8 @@ if __name__=='__main__':
         if len(sys.argv)>1 and sys.argv[1]=='update':
             print(main())
         else:
-            with open('/run/miracleos-operation.lock','w') as lock:
+            STATE.mkdir(parents=True,exist_ok=True)
+            with open(STATE/'operation.lock','w') as lock:
                 fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
                 print(main())
     except Exception as error:

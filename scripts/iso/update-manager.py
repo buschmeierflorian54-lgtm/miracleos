@@ -235,7 +235,7 @@ def main():
     if os.geteuid() != 0:
         raise ValueError('Administratorrechte erforderlich.')
     STATE.mkdir(parents=True, exist_ok=True)
-    with pathlib.Path('/run/miracleos-operation.lock').open('w') as system_lock, (STATE / 'operation.lock').open('w') as lock:
+    with pathlib.Path('/var/lib/miracleos/operation.lock').open('w') as system_lock, (STATE / 'operation.lock').open('w') as lock:
         fcntl.flock(system_lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         action = sys.argv[1] if len(sys.argv) > 1 else 'check'

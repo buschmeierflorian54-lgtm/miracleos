@@ -2,6 +2,7 @@
 # Run inside the image, or explicitly on an installed test system as root.
 set -eu
 mkdir -p /var/lib/miracleos/updates /etc/miracleos /opt/miracleos/updates/releases
+touch /var/lib/miracleos/operation.lock
 test -s /etc/miracleos/update-public.pem
 test -x /usr/local/lib/miracleos/update-manager.py
 cat > /etc/systemd/system/miracleos-update.service <<'EOF'
@@ -18,7 +19,7 @@ UMask=0022
 NoNewPrivileges=true
 ProtectHome=true
 ProtectSystem=strict
-ReadWritePaths=/opt/miracleos /usr/local/bin /usr/local/libexec /var/lib/miracleos/updates
+ReadWritePaths=/opt/miracleos /usr/local/bin /usr/local/libexec /var/lib/miracleos/updates /var/lib/miracleos/operation.lock
 PrivateTmp=true
 RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
 EOF
