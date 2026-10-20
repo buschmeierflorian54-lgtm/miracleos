@@ -1,13 +1,30 @@
 # MiracleOS
 
+## Releases und Downloads
+
+**Aktuelle Testversion: 19.10.2026 · amd64 · ca. 1,7 GB**
+
+| Download | Link |
+| --- | --- |
+| Installations-ISO | [ISO herunterladen](https://github.com/buschmeierflorian54-lgtm/miracleos/releases/download/v0.1.0-test.20261019/MiracleOS-0.1-test.20261019-amd64.iso) |
+| SHA-256-Prüfsumme | [Prüfsumme herunterladen](https://github.com/buschmeierflorian54-lgtm/miracleos/releases/download/v0.1.0-test.20261019/MiracleOS-0.1-test.20261019-SHA256SUMS.txt) |
+| Änderungen und Teststand | [Release vom 19.10.2026](https://github.com/buschmeierflorian54-lgtm/miracleos/releases/tag/v0.1.0-test.20261019) |
+| Frühere Versionen | [Alle Releases](https://github.com/buschmeierflorian54-lgtm/miracleos/releases) |
+
+Die Downloads gehören zu diesem privaten Repository und benötigen entsprechenden GitHub-Zugriff. Die aktuelle ISO enthält neuere Änderungen als der derzeit veröffentlichte Quellstand; Details stehen im Release.
+
+**Direkt zu:** [Installation](#installation) · [Funktionen](#funktionen) · [Entwicklung](#entwickeln-und-testen) · [Projektstruktur](#projektstruktur)
+
+## Überblick
+
 MiracleOS ist ein experimenteller Desktop für Debian 13 mit Go/GTK3, einem angepassten Sway-Compositor und einer installierbaren amd64-Live-ISO.
 
-## Download und Installation
+## Installation
 
-Die aktuelle ISO und ihre SHA-256-Prüfsumme liegen bei den **GitHub Releases** dieses privaten Repositorys. ISO-Dateien werden wegen ihrer Größe als Release-Anhänge verwaltet, nicht im Git-Verlauf.
+Die ISO und ihre Prüfsumme findest du oben unter **Releases und Downloads**.
 
-1. ISO herunterladen und die Prüfsumme mit `SHA256SUMS` vergleichen.
-2. Zuerst in einer separaten VM starten (empfohlen: 4 CPUs, 4 GB RAM, 32 GB leere virtuelle Systemplatte).
+1. ISO herunterladen und die SHA-256-Prüfsumme mit der zugehörigen Prüfsummendatei vergleichen.
+2. Zuerst in einer separaten VM starten (aktuelle Testkonfiguration: 4 CPUs, 8 GB RAM, 64 GB leere virtuelle Systemplatte).
 3. Im Installer ausschließlich die dafür vorgesehene leere Platte auswählen. Die Installation löscht deren Inhalt.
 4. Nach Installation die ISO auswerfen und von der Systemplatte starten.
 5. Namen, Passwort und optional WLAN sowie Spotify einrichten.
