@@ -8,7 +8,7 @@ trap 'rm -rf "$stage"' EXIT
 mkdir -p "$out" "$stage/DEBIAN" "$stage/usr/local/lib/miracleos" "$stage/etc/miracleos"
 cat > "$stage/DEBIAN/control" <<'EOF'
 Package: miracleos-updater
-Version: 0.1.20261020.1
+Version: 0.1.20261020.2
 Architecture: amd64
 Maintainer: MiracleOS Team
 Depends: python3 (>= 3.11), openssl, systemd, ca-certificates
@@ -24,4 +24,4 @@ set -e
 if [ "$1" = configure ]; then /usr/local/lib/miracleos/configure-updates.sh; fi
 EOF
 chmod 755 "$stage/DEBIAN/postinst"
-dpkg-deb --root-owner-group --build "$stage" "$out/miracleos-updater_0.1.20261020.1_amd64.deb"
+dpkg-deb --root-owner-group --build "$stage" "$out/miracleos-updater_0.1.20261020.2_amd64.deb"

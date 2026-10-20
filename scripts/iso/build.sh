@@ -3,7 +3,10 @@
 set -euo pipefail
 repo=$(cd "$(dirname "$0")/../.." && pwd)
 build=${1:-/home/builder/miracleos-live}
+luna=${2:-/home/builder/luna-linux/build/bin/luna-browser}
 if [ "$EUID" -ne 0 ]; then echo 'Run with sudo.' >&2; exit 1; fi
+if [ ! -f "$luna" ]; then echo 'Pass the tested Luna Linux binary as the second argument.' >&2; exit 1; fi
+luna=$(realpath "$luna")
 export DEBIAN_FRONTEND=noninteractive
 apt-get update
 apt-get install -y live-build debootstrap xorriso squashfs-tools mtools dosfstools \
@@ -24,6 +27,7 @@ python3 -m py_compile scripts/iso/system-helper.py
 xvfb-run -a go test ./...
 MIRACLEOS_DBUS_TEST=1 dbus-run-session -- xvfb-run -a go test ./cmd/desktop -run TestSpotifyDBus -count=1
 go build -o /tmp/miracleos-desktop ./cmd/desktop
+go build -o /tmp/miracleos-app-tabs ./cmd/app-tabs
 mkdir -p "$build"
 cd "$build"
 lb config --distribution trixie --architectures amd64 --binary-images iso-hybrid \
@@ -95,6 +99,19 @@ grub2-common
 kexec-tools
 EOF
 install -m 755 /tmp/miracleos-desktop config/includes.chroot/opt/miracleos/miracleos-desktop
+install -m 755 /tmp/miracleos-app-tabs config/includes.chroot/usr/local/libexec/miracleos-app-tabs
+install -D -m 755 "$luna" config/includes.chroot/usr/local/bin/luna-browser
+mkdir -p config/includes.chroot/usr/share/applications
+cat > config/includes.chroot/usr/share/applications/luna-browser.desktop <<'EOF'
+[Desktop Entry]
+Type=Application
+Name=Luna Browser
+Exec=luna-browser %U
+Icon=web-browser
+Terminal=false
+Categories=Network;WebBrowser;
+MimeType=text/html;x-scheme-handler/http;x-scheme-handler/https;
+EOF
 install -m 755 /home/builder/sway-source/sway-1.10.1/build-miracleos/sway/sway config/includes.chroot/usr/local/libexec/miracleos-sway
 install -m 755 "$repo"/runtime/*.py config/includes.chroot/opt/miracleos/runtime/
 install -m 755 "$repo/scripts/iso/system-helper.py" config/includes.chroot/usr/local/lib/miracleos/
@@ -103,7 +120,7 @@ install -D -m 644 "$repo/scripts/iso/update-public.pem" config/includes.chroot/e
 install -m 755 "$repo/scripts/iso/configure-updates.sh" config/includes.chroot/usr/local/lib/miracleos/
 install -m 755 "$repo/scripts/iso/configure-image.sh" config/hooks/live/0900-miracleos.hook.chroot
 cp "$repo/cmd/desktop/images/wallpapers/"*.png config/includes.chroot/usr/share/backgrounds/miracleos/
-image_id=$(cat /tmp/miracleos-desktop "$repo/scripts/iso/system-helper.py" "$repo/scripts/iso/configure-image.sh" "$repo/scripts/iso/grub.cfg" /home/builder/sway-source/sway-1.10.1/build-miracleos/sway/sway | sha256sum | cut -d' ' -f1)
+image_id=$(cat /tmp/miracleos-desktop /tmp/miracleos-app-tabs "$luna" "$repo/scripts/iso/system-helper.py" "$repo/scripts/iso/update-manager.py" "$repo/scripts/iso/update-public.pem" "$repo/scripts/iso/configure-image.sh" "$repo/scripts/iso/grub.cfg" /home/builder/sway-source/sway-1.10.1/build-miracleos/sway/sway | sha256sum | cut -d' ' -f1)
 printf '{"name":"MiracleOS","version":"0.1-test","architecture":"amd64","image_id":"%s"}\n' "$image_id" > config/includes.chroot/etc/miracleos-image.json
 cp config/includes.chroot/etc/miracleos-image.json config/includes.binary/
 lb build

@@ -145,11 +145,14 @@ def bootstrap():
                     shutil.copy2(source, stage / name)
                 shutil.copytree('/opt/miracleos/runtime', stage / 'runtime')
                 atomic_json(stage / 'release.json', {'sequence': 0, 'version': 'Bisherige Installation'})
+                stage.chmod(0o755)
                 os.replace(stage, baseline)
             finally:
                 if stage.exists():
                     shutil.rmtree(stage)
         link('releases/baseline', BASE / 'current')
+    if baseline.exists():
+        baseline.chmod(0o755)
     for name, destination in COMPONENTS.items():
         link(BASE / 'current' / name, pathlib.Path(destination))
 
@@ -157,12 +160,14 @@ def activate(stage, manifest):
     bootstrap()
     destination = BASE / 'releases' / str(manifest['sequence'])
     atomic_json(stage / 'release.json', manifest)
+    stage.chmod(0o755)
     if destination.exists():
         if read_json(destination / 'release.json') != manifest:
             raise ValueError('Versionskonflikt mit einem vorhandenen Update.')
         shutil.rmtree(stage)
     else:
         os.replace(stage, destination)
+    destination.chmod(0o755)
     link(os.readlink(BASE / 'current'), BASE / 'previous')
     link('releases/' + destination.name, BASE / 'current')
     status(state='installed', available=manifest['version'], message='Update installiert. Neue Version nach erneuter Anmeldung verfügbar.', restart_required=True)

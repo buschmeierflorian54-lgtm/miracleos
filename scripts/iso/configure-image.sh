@@ -153,7 +153,7 @@ cat > /etc/systemd/user/miracleos-app-tabs.service <<'EOF'
 Description=MiracleOS global application tabs
 After=miracleos-bar.service
 [Service]
-ExecStart=/opt/miracleos/miracleos-desktop --app-tabs
+ExecStart=/usr/local/libexec/miracleos-app-tabs
 Restart=on-failure
 RestartSec=2
 EOF

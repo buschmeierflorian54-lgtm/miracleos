@@ -57,10 +57,10 @@ go build -o miracleos-desktop ./cmd/desktop
 Zum ISO-Build eine wegwerfbare Debian-13-Builder-VM verwenden:
 
 ```sh
-sudo bash scripts/iso/build.sh /home/builder/miracleos-live
+sudo bash scripts/iso/build.sh /home/builder/miracleos-live /path/to/tested/luna-browser
 ```
 
-Das Skript installiert Build-Abhängigkeiten, baut den angepassten Compositor und Desktop, führt Tests aus und erzeugt `live-image-amd64.hybrid.iso` sowie `SHA256SUMS`. Der Build benötigt Internet und ausreichend freien Speicher. Debian- und Spotify-Paketquellen sind zeitabhängig; das Ergebnis ist nicht bitgenau reproduzierbar.
+Das Skript installiert Build-Abhängigkeiten, baut den angepassten Compositor, Desktop und Tab-Dienst, integriert das getestete Luna-Linux-Binary, führt Tests aus und erzeugt `live-image-amd64.hybrid.iso` sowie `SHA256SUMS`. Der Build benötigt Internet und ausreichend freien Speicher. Debian- und Spotify-Paketquellen sind zeitabhängig; das Ergebnis ist nicht bitgenau reproduzierbar.
 
 ## Projektstruktur
 

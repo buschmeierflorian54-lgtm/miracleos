@@ -79,9 +79,11 @@ class UpdatesTest(unittest.TestCase):
         u.link('releases/baseline', u.BASE / 'current')
         stage = u.BASE / 'releases/staging'
         stage.mkdir()
+        stage.chmod(0o700)
         with patch.object(u, 'bootstrap'):
             u.activate(stage, self.manifest)
         self.assertEqual(u.installed()['sequence'], 1)
+        self.assertEqual((u.BASE / 'releases/1').stat().st_mode & 0o777, 0o755)
         self.assertTrue(old.exists())
         u.rollback()
         self.assertEqual(u.installed()['sequence'], 0)

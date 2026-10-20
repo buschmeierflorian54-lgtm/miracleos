@@ -8,10 +8,10 @@ In **Einstellungen → Updates** stehen Status, manuelle Aktualisierung, Aktivie
 
 Aktualisiert werden der MiracleOS-Desktop, Luna Browser, der angepasste Sway-Compositor, der Tab-Dienst und die mitgelieferten Python-Laufzeitdateien. Laufende Prozesse werden nicht beendet; nach erneuter Anmeldung wird die neue Version verwendet. Debian-Pakete, Kernel, persönliche Daten und Benutzerprofile sind nicht Bestandteil dieses Update-Kanals.
 
-Für bereits installierte Systeme aus der ISO vom 19.10.2026 muss einmal das Paket `miracleos-updater_0.1.20261020.1_amd64.deb` aus dem Update-Release installiert werden:
+Für bereits installierte Systeme aus der ISO vom 19.10.2026 muss einmal das Paket `miracleos-updater_0.1.20261020.2_amd64.deb` aus dem Update-Release installiert werden:
 
 ```sh
-sudo apt install ./miracleos-updater_0.1.20261020.1_amd64.deb
+sudo apt install ./miracleos-updater_0.1.20261020.2_amd64.deb
 sudo /usr/local/lib/miracleos/update-manager.py apply
 ```
 
